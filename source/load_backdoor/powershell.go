@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"os/exec"
+	"syscall"
 )
 
 type CmdIo struct {
@@ -22,7 +23,7 @@ func NewCmdIo() *CmdIo {
 	ps.Stdin = a
 	ps.Stdout = &out_buf
 	ps.Stderr = &out_buf
-	//ps.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+	ps.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	ps.Start()
 	//go ps.Wait()
 	return a
