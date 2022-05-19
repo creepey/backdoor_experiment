@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/binary"
+	"encoding/hex"
 	"errors"
+	"fmt"
 	"io"
 	"net"
 )
@@ -55,7 +57,7 @@ func Recv(conn net.Conn) (cmd, ext uint16, data []byte, err error) {
 	if _, err := io.ReadFull(conn, header); err != nil {
 		return 0, 0, nil, err
 	}
-	//fmt.Println(hex.Dump(header))
+	fmt.Println(hex.Dump(header))
 	if signWord != binary.LittleEndian.Uint16(header) {
 		return 0, 0, nil, errors.New("signWord err")
 	}
